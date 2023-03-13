@@ -16,8 +16,6 @@ namespace GUIDE.Repositories
         public async Task<List<AtivosRet>> GetAtivos()
         {
             List<Ativos> lstAtivos = await _context.Ativos.OrderByDescending(o => o.Data).Take(30).OrderBy(o => o.Data).ToListAsync();
-            // lstAtivos = lstAtivos.OrderByDescending(o => o.Data).TakeLast(30).ToList();
-            // lstAtivos = lstAtivos.OrderBy(o => o.Data).ToList();
 
             List<AtivosRet> lstRetorno = new List<AtivosRet>();
 
