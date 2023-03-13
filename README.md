@@ -92,7 +92,7 @@ password: Teste@Guide2023
 
 url: https://localhost:5001/Ativos/UpdateDatabase
 método: PATCH
-headers: Authotization = Bearer <token obtido no endpoint de login>
+headers: Authotization = Bearer {token obtido no endpoint de login}
 
 
 ## Ativos/GetAtivos - Endpoint para retorno dos dados bem como os cálculos das variáções em d-1 e relativo ao primeiro valor.
