@@ -8,9 +8,12 @@ namespace GUIDE.Repositories
     {
         private readonly DataBaseContext _context;
 
-        public AtivosRepository(DataBaseContext context)
+        private readonly IConfiguration _configuration;
+
+        public AtivosRepository(DataBaseContext context, IConfiguration configuration)
         {
             this._context = context;
+            this._configuration = configuration;
         }
 
         public async Task<List<AtivosRet>> GetAtivos()
@@ -59,9 +62,10 @@ namespace GUIDE.Repositories
                 currentTime = currentTime.AddDays(-60);
                 long unixTime = ((DateTimeOffset)currentTime).ToUnixTimeSeconds();
 
-                Console.WriteLine(unixTime);
+                string urlApi = _configuration.GetValue<string>("Configs:YahooUrl");
+                urlApi = urlApi.Replace("@@Periodo", unixTime.ToString());
 
-                using (var response = await httpClient.GetAsync($"https://query2.finance.yahoo.com/v8/finance/chart/PETR4.SA?period1={unixTime.ToString()}&period2=9999999999&interval=1d"))
+                using (var response = await httpClient.GetAsync(urlApi))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     result = JsonConvert.DeserializeObject<Yahoo>(apiResponse);
@@ -88,8 +92,6 @@ namespace GUIDE.Repositories
 
                         foreach (Double d in lstValores)
                         {
-                            Console.WriteLine($"Data: {dataInicial.AddSeconds(lstTimeStamps[i]).ToString("yyyy-MM-dd")} | Valor: {d}");
-
                             Ativos ativo = new Ativos();
                             ativo.Data = dataInicial.AddSeconds(lstTimeStamps[i]);
                             ativo.Indicador = Convert.ToDecimal(d);
