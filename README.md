@@ -99,4 +99,4 @@ headers: Authotization = Bearer <token obtido no endpoint de login>
 
 url: https://localhost:5001/Ativos/GetAtivos
 método: GET
-headers: Authotization = Bearer <token obtido no endpoint de login>
+headers: Authotization = Bearer {token obtido no endpoint de login}
