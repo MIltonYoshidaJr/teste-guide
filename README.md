@@ -49,18 +49,18 @@ CONSTRAINT [PK_Ativos] PRIMARY KEY CLUSTERED
 Para execução da aplicação será necessário os sdks do link acima. Após instalado executar:
 
 dotnet restore
-dotnet run
+dotnet run --urls="https://localhost:5001"
 
-Uma vez iniciada a aplicação, será indicada a porta a ser utilizada.
+Uma vez iniciada a aplicação, ela estará disponível no endereço: https://localhost:5001
 
-Caso deseje visualizar o Swagger, basta acessar o endereço fornecido na execução: <url>:<porta>/swagger
+Caso deseje visualizar o Swagger, basta acessar o endereço fornecido na execução: https://localhost:5001/swagger
 
 
 # Endpoints disponíveis e suas respectivas chamadas.
 
 ## Auth/Create - Endpoint para criação de um usuário. E um ambiente produtivo, este endpoint deveria estar protegido, porém como estamos trabalhando com a hipótese de ser criado um banco de dados novo. Foi deixado aberto para que seja possível a criação de um novo usuário para aquisição do token.
 
-url: <url>:<porta>/Auth/create
+url: https://localhost:5001/Auth/create
 método: POST
 Body json:
 {
@@ -73,7 +73,7 @@ Caso esteja utilizando a base de dados disponível, este passo não será obriga
 
 ## Auth/Login - Endpoint para login e retorno do token a ser utilizado nas demais chamadas.
 
-url: <url>:<porta>/Auth/login
+url: https://localhost:5001/Auth/login
 método: POST
 Body json:
 {
@@ -90,13 +90,13 @@ password: Teste@Guide2023
 ## Ativos/UpdateDatabase - Endpoint para busca/atualização das informações disponibilizadas pelo Yahoo Finance. Caso seja a primeira execução, é interessante chamar este endpoint para que os dados sejam atualizados na base de dados.
 
 
-url: <url>:<porta>/Ativos/UpdateDatabase
+url: https://localhost:5001/Ativos/UpdateDatabase
 método: PATCH
 headers: Authotization = Bearer <token obtido no endpoint de login>
 
 
 ## Ativos/GetAtivos - Endpoint para retorno dos dados bem como os cálculos das variáções em d-1 e relativo ao primeiro valor.
 
-url: <url>:<porta>/Ativos/GetAtivos
+url: https://localhost:5001/Ativos/GetAtivos
 método: GET
 headers: Authotization = Bearer <token obtido no endpoint de login>
